@@ -1,0 +1,61 @@
+[Server]
+No=1
+IP=0.0.0.0
+Port=3001
+;AllowExternalIP=61.104.44.150/255.255.255.0
+AllowExternalIP=TRUE
+
+[GM ID]
+egbs=1
+
+
+[User DB]
+IP=172.20.0.2
+DBName=newproject_db_auth
+User=lastchaos
+Password=JobServer@22
+
+
+[Data DB]
+IP=172.20.0.2
+DBName=newproject_data
+User=lastchaos
+Password=JobServer@22
+
+
+[Auth DB]
+IP=172.20.0.2
+DBName=newproject_db_auth
+User=lastchaos
+Password=JobServer@22
+
+
+[Messenger Server]
+IP=172.20.0.14
+Port=4100
+
+
+[Connector Server]
+Count=1
+
+[Connector_0]
+Number=1
+MaxSubNumber=1
+IP=172.20.0.12
+Port=4006
+
+[Block IP]
+Number=0
+
+[Block Band]
+Number=0
+Band0=A-211.094.000.000-211.103.255.255
+
+[Auto Block]
+Refresh=2
+MaxTry=5
+ExIP127.0.0.1=1
+
+
+[Block ExID]
+ExIDckh386=1

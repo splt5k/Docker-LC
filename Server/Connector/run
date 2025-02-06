@@ -1,0 +1,31 @@
+#!/bin/sh
+
+lc_pid_file=".lc_run_$1_pid"
+
+while ( : ) do
+        DATE=`date`
+        if [ -r .shutdown ]; then
+                rm -f .shutdown
+        fi
+
+        #if [ -f $lc_pid_file ]; then
+        #        echo "Already Connector Running"
+         #       exit
+        #else
+        #        touch $lc_pid_file
+        #fi
+
+        ./Connector test
+
+        #rm -f ./$lc_pid_file
+        #echo "Remove PID File: $lc_pid_file"
+
+        DATE2=`date`
+        if [ -r .shutdown ]; then
+                echo "***** Shutdown $DATE ~ $DATE2" >> rebootlog
+                exit
+        fi
+
+        echo "!!!!! Reboot $DATE ~ $DATE2" >> rebootlog
+        sleep 2
+done

@@ -1,0 +1,22 @@
+FROM centos:7
+
+# Configurar repositórios manualmente
+RUN cd /etc/yum.repos.d/ \
+    && sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-* \
+    && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+
+# Atualizar sistema e instalar epel-release
+RUN yum -y update && yum -y install epel-release && yum clean all
+
+# Adicionar suporte 32-bit e instalar dependências necessárias
+RUN yum -y install ld-linux.so.2 libaprutil-1.so.0 libstdc++.so.6 libz.so.1 libldap-2.4.so.2 mono-complete gdb screen --setopt=protected_multilib=false && yum clean all
+
+# Copiar libmysqlclient.so.16 para /usr/lib
+COPY Libs/libmysqlclient.so.16 /usr/lib/
+
+# Configurar timezone
+RUN ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
+    echo "America/Sao_Paulo" > /etc/timezone
+
+# Criar diretório de trabalho
+WORKDIR /lastchaos

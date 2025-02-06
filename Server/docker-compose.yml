@@ -1,0 +1,143 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mariadb:10.4.19
+    container_name: lc_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      TZ: America/Sao_Paulo
+    volumes:
+      - ./DB:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      lastchaos_network:
+        ipv4_address: 172.20.0.2
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: --event-scheduler=ON --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
+
+  loginserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+    container_name: lc_loginserver
+    volumes:
+      - ./LoginServer:/lastchaos/LoginServer
+      - ./LogFiles/LoginServer:/lastchaos/LogFiles
+    ports:
+      - "3001:3001"
+    networks:
+      lastchaos_network:
+        ipv4_address: 172.20.0.10
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    command: ["/bin/bash", "-c", "cd /lastchaos/LoginServer && screen -dmS loginserver ./run && tail -f /dev/null"]
+
+  gameserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+    container_name: lc_gameserver
+    volumes:
+      - ./GameServer:/lastchaos/GameServer
+      - ./LogFiles/GameServer:/lastchaos/LogFiles
+    ports:
+      - "4221:4221"
+    networks:
+      lastchaos_network:
+        ipv4_address: 172.20.0.11
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    command: ["/bin/bash", "-c", "cd /lastchaos/GameServer && screen -dmS gameserver ./run && tail -f /dev/null"]
+
+  connector:
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+    container_name: lc_connector
+    volumes:
+      - ./Connector:/lastchaos/Connector
+      - ./LogFiles/Connector:/lastchaos/LogFiles
+    ports:
+      - "4006:4006"
+    networks:
+      lastchaos_network:
+        ipv4_address: 172.20.0.12
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    command: ["/bin/bash", "-c", "cd /lastchaos/Connector && screen -dmS connector ./run && tail -f /dev/null"]
+
+  helper:
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+    container_name: lc_helper
+    volumes:
+      - ./Helper:/lastchaos/Helper
+      - ./LogFiles/Helper:/lastchaos/LogFiles
+    ports:
+      - "4200:4200"
+    networks:
+      lastchaos_network:
+        ipv4_address: 172.20.0.13
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    command: ["/bin/bash", "-c", "cd /lastchaos/Helper && screen -dmS helper ./run && tail -f /dev/null"]
+
+  messenger:
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+    container_name: lc_messenger
+    volumes:
+      - ./Messenger:/lastchaos/Messenger
+      - ./LogFiles/Messenger:/lastchaos/LogFiles
+    ports:
+      - "4100:4100"
+    networks:
+      lastchaos_network:
+        ipv4_address: 172.20.0.14
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    command: ["/bin/bash", "-c", "cd /lastchaos/Messenger && screen -dmS messenger ./run && tail -f /dev/null"]
+
+  cashserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.centos
+    container_name: lc_cashserver
+    volumes:
+      - ./CashServer:/lastchaos/CashServer
+    ports:
+      - "7989:7989"
+    networks:
+      lastchaos_network:
+        ipv4_address: 172.20.0.15
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    command: ["/bin/bash", "-c", "cd /lastchaos/CashServer && screen -dmS cashserver ./run && tail -f /dev/null"]
+
+networks:
+  lastchaos_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
