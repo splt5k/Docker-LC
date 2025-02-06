@@ -85,8 +85,9 @@ Server/
 ├── LoginServer/
 ├── Messenger/
 ├── Libs/
-│   └── libmysqlclient.so.16
+│ └── libmysqlclient.so.16
 └── LogFiles/
+    ├── CashServer/
     ├── Connector/
     ├── GameServer/
     ├── Helper/
