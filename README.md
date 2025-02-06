@@ -34,8 +34,8 @@ Ambiente Docker completo para servidor LastChaos, oferecendo uma solucao contain
 2. Configure o arquivo .env
 3. Execute os comandos:
     ```bash
-    docker-compose build --no-cache
-    docker-compose up -d
+    docker compose build --no-cache
+    docker compose up -d
     ```
 
 Para mais detalhes, consulte o [README](./Server/README.md)
