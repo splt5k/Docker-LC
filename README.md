@@ -1,46 +1,56 @@
 # LastChaos Docker Server 🎮
 
-Ambiente Docker completo para servidor LastChaos, oferecendo uma solução containerizada e automatizada para todos os serviços necessários.
+Ambiente Docker completo para servidor LastChaos, oferecendo uma solucao containerizada e automatizada para todos os servicos necessarios.
 
-## ✨ Características
+## ✨ Caracteristicas
 
-- **Containerização Completa**: Todos os serviços rodam em containers Docker isolados
+- **Containerizacao Completa**: Todos os servicos rodam em containers Docker isolados
 - **Multi-plataforma**: Funciona em Windows e Linux
-- **Auto-recuperação**: Reinicialização automática em caso de falhas
-- **Fácil Manutenção**: Comandos simples para gerenciamento
+- **Auto-recuperacao**: Reinicializacao automatica em caso de falhas
+- **Facil Manutencao**: Comandos simples para gerenciamento
 - **Banco de Dados Otimizado**: MySQL/MariaDB com Event Scheduler configurado
-- **Rede Isolada**: Comunicação segura entre serviços via rede interna Docker
+- **Rede Isolada**: Comunicacao segura entre servicos via rede interna Docker
 
-## 🚀 Serviços Inclusos
+## 🚀 Servicos Inclusos
 
 - MySQL/MariaDB (Banco de Dados)
-- LoginServer (Autenticação)
+- LoginServer (Autenticacao)
 - GameServer (Servidor Principal)
-- Connector (Conexões)
+- Connector (Conexoes)
 - Helper (Guildas)
 - Messenger (Mensagens)
 - CashServer (Sistema de Cash)
 
-## 📦 Pré-requisitos
+## 📦 Pre-requisitos
 
 - Docker
 - Docker Compose
-- 4GB RAM (mínimo)
-- 20GB espaço em disco
+- 4GB RAM (minimo)
+- 20GB espaco em disco
 
-## 🛠️ Configuração Rápida
+## 🛠️ Configuracao Rapida
 
-1. Clone o repositório
+1. Clone o repositorio
 2. Configure o arquivo .env
 3. Execute os comandos:
-    `docker-compose build --no-cache`
-    `docker-compose up -d`
+    ```bash
+    docker-compose build --no-cache
+    docker-compose up -d
+    ```
 
 Para mais detalhes, consulte o [README](./Server/README.md)
 
-## 🤝 Contribuições
+## 🚑 Download do Cliente
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
+Para acessar o cliente oficial do LastChaos, faca o download atraves do link abaixo:
+
+[Download do Cliente - Windows v1.0.0](https://github.com/splt5k/Docker-LC/releases/tag/v1.0.0)
+
+## 🤝 Contribuicoes
+
+Contribuicoes sao bem-vindas! Sinta-se a vontade para abrir issues e pull requests.
 
 ---
+
 ⭐ Se este projeto te ajudou, considere dar uma estrela!
+
