@@ -19,7 +19,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    command: --event-scheduler=ON --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: --event-scheduler=ON --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --lower_case_table_names=1
     restart: unless-stopped
 
   loginserver:
