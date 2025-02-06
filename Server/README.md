@@ -58,7 +58,7 @@ Requisitos: Docker e Docker Compose
 
 **Primeira execucao:**  
 ```bash
-docker-compose build --no-cache && docker-compose up -d
+docker compose build --no-cache && docker compose up -d
 ```
 
 **Acessar console de um servico (ex: LoginServer):**  
@@ -69,7 +69,7 @@ screen -r loginserver
 
 **Reiniciar servicos ou atualizar apos mudancas no `docker-compose.yml`:**  
 ```bash
-docker-compose down && docker-compose build --no-cache && docker-compose up -d
+docker compose down && docker compose build --no-cache && docker compose up -d
 ```
 
 ## Estrutura de Diretorios
