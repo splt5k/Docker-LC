@@ -42,9 +42,11 @@ Para mais detalhes, consulte o [README](./Server/README.md)
 
 ## 🚑 Download do Cliente
 
-Para acessar o cliente oficial do LastChaos, faca o download atraves do link abaixo:
+Para acessar o cliente do LastChaos, faca o download atraves do link abaixo:
 
 [Download do Cliente - Windows v1.0.0](https://github.com/splt5k/Docker-LC/releases/tag/v1.0.0)
+
+O sistema cria a conta automaticamente: basta digitar um login e senha. Se a conta ainda não existir, ela será criada instantaneamente.
 
 ## 🤝 Contribuicoes
 
