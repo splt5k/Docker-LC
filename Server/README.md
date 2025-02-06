@@ -67,9 +67,14 @@ docker exec -it lc_loginserver bash
 screen -r loginserver
 ```
 
+**Atualizar apos mudancas no Dockerfile:**  
+```bash
+docker compose down; docker compose build --no-cache; docker compose up -d
+```
+
 **Reiniciar servicos ou atualizar apos mudancas no `docker-compose.yml`:**  
 ```bash
-docker compose down && docker compose build --no-cache && docker compose up -d
+docker compose down; docker compose up -d
 ```
 
 ## Estrutura de Diretorios
