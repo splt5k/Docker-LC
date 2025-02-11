@@ -1,0 +1,19 @@
+#!/bin/sh
+
+while ( : ) do
+        DATE=`date`
+        if [ -r .shutdown ]; then
+                rm -f .shutdown
+        fi
+
+        ./LoginServer start
+
+        DATE2=`date`
+        if [ -r .shutdown ]; then
+                echo "***** Shutdown $DATE ~ $DATE2" >> rebootlog
+                exit
+        fi
+
+        echo "!!!!! Reboot $DATE ~ $DATE2" >> rebootlog
+        sleep 2
+done

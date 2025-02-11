@@ -1,0 +1,8 @@
+#!/bin/sh
+./StarterBilling.sh start;
+./StarterConnector.sh start;
+./StarterHelper.sh start;
+./StarterMessenger.sh start;
+./StarterLoginServer.sh restart;
+./StarterGameServer_1.sh start;
+

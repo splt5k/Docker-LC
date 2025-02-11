@@ -1,3 +1,4 @@
+name: lastchaos
 services:
   mysql:
     image: mariadb:10.4.19
@@ -20,110 +21,19 @@ services:
     command: --event-scheduler=ON --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --lower_case_table_names=1
     restart: unless-stopped
 
-  cashserver:
+  lc_server:
     build:
       context: .
       dockerfile: Dockerfile.centos
-    container_name: lc_cashserver
+    container_name: lc_server
+    stdin_open: true
+    tty: true
     volumes:
-      - ./CashServer:/lastchaos/CashServer
+      - ./ServerRun:/lastchaos/ServerRun
+      - ./ServerRun/LogFiles:/lastchaos/LogFiles
     ports:
-      - "7989:7989"
-    networks:
-      lastchaos_network:
-        ipv4_address: 172.20.0.15
-    depends_on:
-      mysql:
-        condition: service_healthy
-    restart: unless-stopped
-    command: ["/bin/bash", "-c", "chmod -R 777 /lastchaos/* && cd /lastchaos/CashServer && screen -dmS cashserver ./run && tail -f /dev/null"]
-
-  messenger:
-    build:
-      context: .
-      dockerfile: Dockerfile.centos
-    container_name: lc_messenger
-    volumes:
-      - ./Messenger:/lastchaos/Messenger
-      - ./LogFiles/Messenger:/lastchaos/LogFiles
-    ports:
-      - "4100:4100"
-    networks:
-      lastchaos_network:
-        ipv4_address: 172.20.0.14
-    depends_on:
-      mysql:
-        condition: service_healthy
-    restart: unless-stopped
-    command: ["/bin/bash", "-c", "chmod -R 777 /lastchaos/* && cd /lastchaos/Messenger && screen -dmS messenger ./run && tail -f /dev/null"]
-
-  connector:
-    build:
-      context: .
-      dockerfile: Dockerfile.centos
-    container_name: lc_connector
-    volumes:
-      - ./Connector:/lastchaos/Connector
-      - ./LogFiles/Connector:/lastchaos/LogFiles
-    ports:
-      - "4006:4006"
-    networks:
-      lastchaos_network:
-        ipv4_address: 172.20.0.12
-    depends_on:
-      mysql:
-        condition: service_healthy
-    restart: unless-stopped
-    command: ["/bin/bash", "-c", "chmod -R 777 /lastchaos/* && cd /lastchaos/Connector && screen -dmS connector ./run && tail -f /dev/null"]
-
-  helper:
-    build:
-      context: .
-      dockerfile: Dockerfile.centos
-    container_name: lc_helper
-    volumes:
-      - ./Helper:/lastchaos/Helper
-      - ./LogFiles/Helper:/lastchaos/LogFiles
-    ports:
-      - "4200:4200"
-    networks:
-      lastchaos_network:
-        ipv4_address: 172.20.0.13
-    depends_on:
-      mysql:
-        condition: service_healthy
-    restart: unless-stopped
-    command: ["/bin/bash", "-c", "chmod -R 777 /lastchaos/* && cd /lastchaos/Helper && screen -dmS helper ./run && tail -f /dev/null"]
-
-  gameserver:
-    build:
-      context: .
-      dockerfile: Dockerfile.centos
-    container_name: lc_gameserver
-    volumes:
-      - ./GameServer:/lastchaos/GameServer
-      - ./LogFiles/GameServer:/lastchaos/LogFiles
-    ports:
-      - "4221:4221"
-    networks:
-      lastchaos_network:
-        ipv4_address: 172.20.0.11
-    depends_on:
-      mysql:
-        condition: service_healthy
-    restart: unless-stopped
-    command: ["/bin/bash", "-c", "chmod -R 777 /lastchaos/* && cd /lastchaos/GameServer && screen -dmS gameserver ./run && tail -f /dev/null"]
-
-  loginserver:
-    build:
-      context: .
-      dockerfile: Dockerfile.centos
-    container_name: lc_loginserver
-    volumes:
-      - ./LoginServer:/lastchaos/LoginServer
-      - ./LogFiles/LoginServer:/lastchaos/LogFiles
-    ports:
-      - "3001:3001"
+      - "3001:3001"   # LoginServer
+      - "4221:4221"   # GameServer
     networks:
       lastchaos_network:
         ipv4_address: 172.20.0.10
@@ -131,7 +41,7 @@ services:
       mysql:
         condition: service_healthy
     restart: unless-stopped
-    command: ["/bin/bash", "-c", "chmod -R 777 /lastchaos/* && cd /lastchaos/LoginServer && screen -dmS loginserver ./run && tail -f /dev/null"]
+    command: ["/bin/bash", "-c", "chmod -R 777 /lastchaos && cd /lastchaos/ServerRun && ./startall && tail -f /dev/null"]
 
 networks:
   lastchaos_network:

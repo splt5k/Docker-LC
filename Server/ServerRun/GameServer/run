@@ -1,0 +1,32 @@
+#!/bin/sh
+
+while ( : ) do
+        DATE=`date`
+        if [ -r .shutdown ]; then
+                rm -f .shutdown
+        fi
+
+
+        #cp ../new/*tar.gz ./data
+        #cd data
+        #tar -xzf *tar.gz
+        #rm *tar.gz
+        #cd ..
+
+        #cp ../new/GameServer_d .
+        #gdb --batch --command=cmd ./GameServer_d > "bt_`date +%y%m%d%H%M%S`.log"
+        #mv memdump "dump_`date +%y%m%d%H%M%S`.log"
+		# debug mode abaixo, quando crashar digite o comando backtrace
+		gdb -ex run ./GameServer_d
+		#./GameServer_d
+
+
+        DATE2=`date`
+        if [ -r .shutdown ]; then
+                echo "***** Shutdown $DATE ~ $DATE2" >> rebootlog
+                exit
+        fi
+
+        echo "!!!!! Reboot $DATE ~ $DATE2" >> rebootlog
+        sleep 2
+done

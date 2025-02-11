@@ -1,0 +1,38 @@
+[Server]
+Number=1
+MaxSubServer=1
+IP=127.0.0.1
+Port=4006
+
+
+[User DB]
+IP=172.20.0.2
+DBName=newproject_db_auth
+User=lastchaos
+Password=JobServer@22
+
+
+[Auth DB]
+IP=172.20.0.2
+DBName=newproject_db_auth
+User=lastchaos
+Password=JobServer@22
+
+
+[Event DB]
+IP=172.20.0.2
+DBName=newproject_db_auth
+User=lastchaos
+Password=JobServer@22
+
+
+[Log DB]
+IP=172.20.0.2
+DBName=newproject_db_auth
+User=lastchaos
+Password=JobServer@22
+
+
+[Billing Server]
+IP=127.0.0.1
+Port=7989

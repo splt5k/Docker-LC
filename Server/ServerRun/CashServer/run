@@ -1,0 +1,21 @@
+#!/bin/bash
+while ( : ) do
+        DATE=`date`
+        if [ -r .shutdown ]; then
+                rm -f .shutdown
+        fi
+	 
+		LOGDATE=`date +"%Y_%m_%d"`
+        #./BillingServer
+		mono Cash_Server.exe
+
+        DATE2=`date`
+        if [ -r .shutdown ]; then
+                echo "***** Shutdown $DATE ~ $DATE2" >> shutdownlog
+                exit
+        fi
+
+        echo "!!!!! Reboot $DATE ~ $DATE2" >> rebootlog
+        sleep 2
+done
+
